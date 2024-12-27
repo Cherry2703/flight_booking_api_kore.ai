@@ -35,6 +35,12 @@ initializeDBAndServer();
 
 
 
+app.get("/travel", async(req, res) => {
+    const query = `SELECT * FROM travel`;
+    const data = await db.all(query)
+    res.status(200).send(data)
+});
+
 
 app.get("/travel/:id", async(req, res) => {
     const { id } = req.params;
