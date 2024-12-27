@@ -52,3 +52,22 @@ app.get("/travel/:id", async(req, res) => {
     const data = await db.get(query)
     res.status(200).send(data)
 });
+
+
+
+
+app.post("/travel", (req, res) => {
+    const { name, mobile, boarding, destination, email, date } = req.body;
+
+    if (!name || !mobile || !boarding || !destination || !email || !date) {
+        return res.status(400).json({ error: "All fields are required." });
+    }
+
+    const query = `INSERT INTO travel (name, mobile, boarding, destination, email, date) VALUES ('${name}', '${mobile}', '${boarding}', '${destination}', '${email}', '${date}')`;
+    db.run(query, function (err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(201).json({ id: this.lastID, message: "Travel record created successfully." });
+    });
+});
