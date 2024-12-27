@@ -34,6 +34,10 @@ const initializeDBAndServer = async () => {
 initializeDBAndServer();
 
 
+app.get('/',async(req,res)=>{
+    res.send('server is working ..............')
+})
+
 
 app.get("/travel", async(req, res) => {
     const query = `SELECT * FROM travel`;
